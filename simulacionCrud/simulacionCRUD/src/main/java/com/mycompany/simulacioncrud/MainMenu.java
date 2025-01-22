@@ -11,6 +11,12 @@ public class MainMenu extends JFrame {
         setSize(500, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
+        
+        initializeMenu(); // inicializa los botones
+        }
+    
+        private void initializeMenu() {
+        getContentPane().removeAll(); // Limpia el contenido actual
 
         // Creación de botones para navegar a las pantallas CRUD
         JButton btnCreate = new JButton("Crear");
@@ -32,13 +38,16 @@ public class MainMenu extends JFrame {
         btnCreate.addActionListener(e -> openInternalJframe(new CreateScreen(this)));
         btnRead.addActionListener(e -> openInternalJframe(new ReadScreen(this)));
         btnUpdate.addActionListener(e -> openInternalJframe(new UpdateScreen(this)));
+        btnDelete.addActionListener(e -> openInternalJframe(new DeleteScreen(this)));
         
         // Agregar los botones a la ventana principal
         add(btnCreate);
         add(btnRead);
         add(btnUpdate);
         add(btnDelete);
-
+        
+         revalidate(); // Refresca el contenido
+        repaint();    // Redibuja la ventana
     }
     
     // metodo para abrir un JinternalFrame dentro del JFrame principal
@@ -51,6 +60,10 @@ public class MainMenu extends JFrame {
         desktopPane.add(frame);
         // nos ayuda a que este visible el Jinternalframe
         frame.setVisible(true);
+    }
+    // Método para volver al menú principal
+    public void returnToMenu() {
+        initializeMenu(); // Vuelve a configurar el menú principal
     }
 
 

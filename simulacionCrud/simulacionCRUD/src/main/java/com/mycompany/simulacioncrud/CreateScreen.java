@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-
 public class CreateScreen extends JInternalFrame {
 
     // Creamos los campos y la estructura que se utilizara para alamcenar los datos
@@ -55,23 +54,22 @@ public class CreateScreen extends JInternalFrame {
         add(txtAge);
         add(new JLabel());
         add(btnSave);
-        add(btnSave); add(btnBack);
-
+        add(btnSave);
+        add(btnBack);
 
         // inicializamos la lista en donde se almacenar los datos;
         personList = new ArrayList<>();
 
         // funcion del boton guardar
         btnSave.addActionListener(e -> saveData());
-        
+
         // funcionamiento del boton volver
         btnBack.addActionListener(e -> {
-            mainMenu.setContentPane(new JDesktopPane());
-            mainMenu.revalidate();
+            if (mainMenu instanceof MainMenu) {
+                ((MainMenu) mainMenu).returnToMenu();
+            }
         });
-        
-        
-        
+
     }
     //metodo para guardar los datos
 

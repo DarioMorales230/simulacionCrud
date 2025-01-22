@@ -23,12 +23,14 @@ public class UpdateScreen extends javax.swing.JInternalFrame {
 
         JButton btnUpdate = new JButton("Actualizar");
         JButton btnBack = new JButton("Volver");
+        btnBack.addActionListener(e -> {
+            if (mainMenu instanceof MainMenu) {
+                ((MainMenu) mainMenu).returnToMenu();
+            }
+        });
 
         btnUpdate.addActionListener(e -> updateData());
-        btnBack.addActionListener(e -> {
-            mainMenu.setContentPane(new JDesktopPane());
-            mainMenu.revalidate();
-        });
+       
 
         JPanel bottomPanel = new JPanel();
         bottomPanel.add(btnUpdate);

@@ -27,9 +27,11 @@ public class ReadScreen extends JInternalFrame {
 
         JButton btnBack = new JButton("Volver");
         btnBack.addActionListener(e -> {
-            mainMenu.setContentPane(new JDesktopPane());
-            mainMenu.revalidate();
+            if (mainMenu instanceof MainMenu) {
+                ((MainMenu) mainMenu).returnToMenu();
+            }
         });
+
 
         add(new JScrollPane(table), BorderLayout.CENTER);
         add(btnBack, BorderLayout.SOUTH);
