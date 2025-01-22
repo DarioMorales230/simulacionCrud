@@ -65,7 +65,7 @@ public class MainMenu extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-
+        new MainMenu().setVisible(true); // Crea una instancia del Menú Principal y lo hace visible
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
