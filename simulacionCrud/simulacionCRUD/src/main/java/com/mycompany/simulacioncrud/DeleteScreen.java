@@ -1,27 +1,20 @@
-
 package com.mycompany.simulacioncrud;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-public class DeleteScreen extends javax.swing.JInternalFrame {
-    
-    private JTable table;
-    private ArrayList<Person>personList;
-    
 
-    
+public class DeleteScreen extends JInternalFrame {
+
+    private JTable table;
+
     public DeleteScreen(JFrame mainMenu) {
         setTitle("Eliminar Registro");
         setSize(400, 300);
         setClosable(true);
         setLayout(new BorderLayout());
 
-        personList = new ArrayList<>();
-
         String[] columnNames = {"Nombre", "Apellido", "Cédula", "Teléfono", "Edad"};
-        Object[][] data = {};
-        table = new JTable(data, columnNames);
+        table = new JTable(new Object[0][0], columnNames);
 
         JButton btnDelete = new JButton("Eliminar");
         JButton btnBack = new JButton("Volver");
@@ -32,7 +25,6 @@ public class DeleteScreen extends javax.swing.JInternalFrame {
         });
 
         btnDelete.addActionListener(e -> deleteData());
-       
 
         JPanel bottomPanel = new JPanel();
         bottomPanel.add(btnDelete);
@@ -41,13 +33,16 @@ public class DeleteScreen extends javax.swing.JInternalFrame {
         add(new JScrollPane(table), BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
         
-    }
-     public void updateTable(ArrayList<Person> list) {
-        personList = list;
-        Object[][] data = new Object[personList.size()][5];
+         // Cargar los datos iniciales desde DataRepository
+        updateTable(DataRepository.getPersonList());
 
-        for (int i = 0; i < personList.size(); i++) {
-            Person p = personList.get(i);
+    }
+
+    public void updateTable(java.util.List<Person> list) {
+        Object[][] data = new Object[list.size()][5];
+
+        for (int i = 0; i < list.size(); i++) {
+            Person p = list.get(i);
             data[i][0] = p.getName();
             data[i][1] = p.getLastname();
             data[i][2] = p.getCedula();
@@ -57,21 +52,23 @@ public class DeleteScreen extends javax.swing.JInternalFrame {
 
         table.setModel(new javax.swing.table.DefaultTableModel(data, new String[]{"Nombre", "Apellido", "Cédula", "Teléfono", "Edad"}));
     }
-     
-     private void deleteData() {
+
+    private void deleteData() {
         int selectedRow = table.getSelectedRow();
         if (selectedRow >= 0) {
-            personList.remove(selectedRow);
-            updateTable(personList);
-            JOptionPane.showMessageDialog(this, "Registro eliminado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar este registro?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                DataRepository.deletePerson(selectedRow);
+                updateTable(DataRepository.getPersonList());
+                JOptionPane.showMessageDialog(this, "Registro eliminado correctamente.");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un registro", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un registro para eliminar.");
         }
-    }
-    
 
- 
-    
+    }
+
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

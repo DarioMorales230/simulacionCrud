@@ -3,19 +3,19 @@ package com.mycompany.simulacioncrud;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-public class UpdateScreen extends javax.swing.JInternalFrame {
+public class UpdateScreen extends JInternalFrame {
 
     private JTable table;
-    private ArrayList<Person> personList;
+   
 
     public UpdateScreen(JFrame mainMenu) {
         setTitle("Actualizar Registro");
         setSize(400, 300);
         setClosable(true);
         setLayout(new BorderLayout());
-
-        personList = new ArrayList<>();
 
         String[] columnNames = {"Nombre", "Apellido", "Cédula", "Teléfono", "Edad"};
         Object[][] data = {};
@@ -38,13 +38,16 @@ public class UpdateScreen extends javax.swing.JInternalFrame {
 
         add(new JScrollPane(table), BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
+        
+         // Inicializar la tabla con datos del repositorio
+        updateTable();
 
     }
 
-    private void updateTable(ArrayList<Person> list) {
-        personList = list;
+    private void updateTable() {
+        ArrayList<Person> personList = DataRepository.getPersonList();
         Object[][] data = new Object[personList.size()][5];
-
+        
         for (int i = 0; i < personList.size(); i++) {
             Person p = personList.get(i);
             data[i][0] = p.getName();
@@ -59,8 +62,9 @@ public class UpdateScreen extends javax.swing.JInternalFrame {
     }
 
     private void updateData() {
-        int selectedRow = table.getSelectedRow();
+         int selectedRow = table.getSelectedRow();
         if (selectedRow >= 0) {
+            ArrayList<Person> personList = DataRepository.getPersonList();
             Person person = personList.get(selectedRow);
 
             String newName = JOptionPane.showInputDialog(this, "Nuevo Nombre", person.getName());
@@ -70,8 +74,12 @@ public class UpdateScreen extends javax.swing.JInternalFrame {
             person.setName(newName);
             person.setLastname(newLastName);
             person.setPhone(newPhone);
+           
+            
+            
 
-            updateTable(personList);
+            DataRepository.updatePerson(selectedRow, person); // Actualizar en el repositorio
+            updateTable();
             JOptionPane.showMessageDialog(this, "Registro actualizado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un registro", "Error", JOptionPane.ERROR_MESSAGE);
