@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class CreateScreen extends JInternalFrame {
-    
+
     // Creamos los campos y la estructura que se utilizara para alamcenar los datos
     private JTextField txtName, txtLastName, txtCedula, txtPhone, txtAge;
     private ArrayList<Person> personList;
@@ -19,61 +19,58 @@ public class CreateScreen extends JInternalFrame {
      */
     public CreateScreen() {
         // configuracion del JInternalFrameForm
-        
+
         setTitle("Crear Usuario");
-        setSize(400,500);
+        setSize(400, 500);
         setClosable(true); // nos permite cerrar la ventana
-        setLayout(new GridLayout(7,2)); // Organiza componentes en una cuadricua
-        
+        setLayout(new GridLayout(7, 2)); // Organiza componentes en una cuadricua
+
         // etiquetas y campos de entrada pra los datos
         JLabel lblName = new JLabel("Nombre");
         JLabel lblLastName = new JLabel("Apellido");
         JLabel lblCedula = new JLabel("Cedula");
         JLabel lblPhone = new JLabel("Telefono");
         JLabel lblAge = new JLabel("Edad");
-        
+
         txtName = new JTextField();
         txtLastName = new JTextField();
         txtCedula = new JTextField();
-        txtPhone= new JTextField();
+        txtPhone = new JTextField();
         txtAge = new JTextField();
-           
-           txtName.setPreferredSize(new Dimension(100, 30));
-           add(lblName);
-           
-        
+
         JButton btnSave = new JButton("Guardar"); // bootn para guardar los datos
-        
-        
+
         // Agregar componentes al formulario
-        add(lblName); add(txtName);
-        add(lblLastName); add(txtLastName);
-        add(lblCedula); add(txtCedula);
-        add(lblPhone); add(txtPhone);
-        add(lblAge); add(txtAge);
-        add(new JLabel()); add(btnSave);
-        
-        
+        add(lblName);
+        add(txtName);
+        add(lblLastName);
+        add(txtLastName);
+        add(lblCedula);
+        add(txtCedula);
+        add(lblPhone);
+        add(txtPhone);
+        add(lblAge);
+        add(txtAge);
+        add(new JLabel());
+        add(btnSave);
+
         // inicializamos la lista en donde se almacenar los datos;
-        
         personList = new ArrayList<>();
-        
+
         // funcion del boton guardar
-        
         btnSave.addActionListener(e -> saveData());
-        
+
     }
     //metodo para guardar los datos
-    
+
     private void saveData() {
         String Name = txtName.getText();
         String LastName = txtLastName.getText();
         String Cedula = txtCedula.getText();
         String Phone = txtPhone.getText();
         String Age = txtAge.getText();
-        
-         // validaciones para el ingreso de datos 
-        
+
+        // validaciones para el ingreso de datos 
         if (Name.isEmpty() || LastName.isEmpty() || Cedula.isEmpty() || Age.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -90,14 +87,25 @@ public class CreateScreen extends JInternalFrame {
             JOptionPane.showMessageDialog(this, "La edad debe ser un número", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-    }
-    
-   
-    
-    
-    
 
-   
+        // Conversión y almacenamiento de datos
+        int age = Integer.parseInt(Age);
+        personList.add(new Person(Name, LastName, Cedula, Phone, age));
+        JOptionPane.showMessageDialog(this, "Registro agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        clearFields(); // Limpia los campos después de guardar
+    }
+
+    private void clearFields() {
+        txtName.setText("");
+        txtLastName.setText("");
+        txtCedula.setText("");
+        txtPhone.setText("");
+        txtAge.setText("");
+
+    }
+
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
