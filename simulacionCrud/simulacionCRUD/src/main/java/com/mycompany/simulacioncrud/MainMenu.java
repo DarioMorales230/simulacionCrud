@@ -29,8 +29,8 @@ public class MainMenu extends JFrame {
         que abra las ventanos corespondientes.
        */
         
-        btnCreate.addActionListener(e -> openInternalJframe(new CreateScreen()));
-        
+        btnCreate.addActionListener(e -> openInternalJframe(new CreateScreen(this)));
+        btnRead.addActionListener(e -> openInternalJframe(new ReadScreen(this)));
         
         // Agregar los botones a la ventana principal
         add(btnCreate);

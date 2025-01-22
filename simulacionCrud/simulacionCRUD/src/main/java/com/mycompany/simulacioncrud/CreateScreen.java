@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+
 public class CreateScreen extends JInternalFrame {
 
     // Creamos los campos y la estructura que se utilizara para alamcenar los datos
@@ -17,13 +18,13 @@ public class CreateScreen extends JInternalFrame {
     /**
      * Creates new form CreateScreen
      */
-    public CreateScreen() {
+    public CreateScreen(JFrame mainMenu) {
         // configuracion del JInternalFrameForm
 
         setTitle("Crear Usuario");
         setSize(400, 500);
         setClosable(true); // nos permite cerrar la ventana
-        setLayout(new GridLayout(7, 2)); // Organiza componentes en una cuadricua
+        setLayout(new GridLayout(8, 2)); // Organiza componentes en una cuadricua
 
         // etiquetas y campos de entrada pra los datos
         JLabel lblName = new JLabel("Nombre");
@@ -39,6 +40,7 @@ public class CreateScreen extends JInternalFrame {
         txtAge = new JTextField();
 
         JButton btnSave = new JButton("Guardar"); // bootn para guardar los datos
+        JButton btnBack = new JButton("Volver"); // Botón para volver al menú principal
 
         // Agregar componentes al formulario
         add(lblName);
@@ -53,13 +55,23 @@ public class CreateScreen extends JInternalFrame {
         add(txtAge);
         add(new JLabel());
         add(btnSave);
+        add(btnSave); add(btnBack);
+
 
         // inicializamos la lista en donde se almacenar los datos;
         personList = new ArrayList<>();
 
         // funcion del boton guardar
         btnSave.addActionListener(e -> saveData());
-
+        
+        // funcionamiento del boton volver
+        btnBack.addActionListener(e -> {
+            mainMenu.setContentPane(new JDesktopPane());
+            mainMenu.revalidate();
+        });
+        
+        
+        
     }
     //metodo para guardar los datos
 
