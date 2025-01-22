@@ -31,6 +31,7 @@ public class MainMenu extends JFrame {
         
         btnCreate.addActionListener(e -> openInternalJframe(new CreateScreen(this)));
         btnRead.addActionListener(e -> openInternalJframe(new ReadScreen(this)));
+        btnUpdate.addActionListener(e -> openInternalJframe(new UpdateScreen(this)));
         
         // Agregar los botones a la ventana principal
         add(btnCreate);
