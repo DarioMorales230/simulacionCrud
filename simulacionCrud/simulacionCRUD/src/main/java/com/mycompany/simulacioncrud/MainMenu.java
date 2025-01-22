@@ -1,9 +1,9 @@
-
 package com.mycompany.simulacioncrud;
 
 import javax.swing.*;
 
 public class MainMenu extends JFrame {
+
     // Constructor del Menú Principal
     public MainMenu() {
         // Configuración de la ventana principal
@@ -24,11 +24,9 @@ public class MainMenu extends JFrame {
         btnUpdate.setBounds(140, 130, 120, 30);
         btnDelete.setBounds(140, 180, 120, 30);
 
-     
     }
 
-    
-   
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -49,12 +47,7 @@ public class MainMenu extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-       
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainMenu().setVisible(true);
-            }
-        });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
