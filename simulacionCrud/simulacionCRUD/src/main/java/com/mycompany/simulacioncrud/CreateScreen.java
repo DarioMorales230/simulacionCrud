@@ -81,36 +81,19 @@ public class CreateScreen extends JInternalFrame {
         String Cedula = txtCedula.getText();
         String Phone = txtPhone.getText();
         String Age = txtAge.getText();
-
-        // validaciones para el ingreso de datos 
-        if (Name.isEmpty() || LastName.isEmpty() || Cedula.isEmpty() || Age.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (!Name.matches("[a-zA-Z]+") || !LastName.matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(this, "Nombre y Apellido deben contener solo letras", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (!Cedula.matches("\\d{10}")) {
-            JOptionPane.showMessageDialog(this, "La cédula debe tener 10 dígitos", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (!Age.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "La edad debe ser un número", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Conversión y almacenamiento de datos
-        int age = Integer.parseInt(Age);
-        DataRepository.addPerson(new Person(Name, LastName, Cedula, Phone, age));
+        
+          // validaciones para el ingreso de datos 
+    // Validar campos
+    if (ValidationUtils.validateFields(Name, LastName, Cedula, Phone, Age, this)) {
+        int parsedAge = Integer.parseInt(Age);
+        DataRepository.addPerson(new Person(Name, LastName, Cedula, Phone, parsedAge));
         JOptionPane.showMessageDialog(this, "Registro agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        clearFields(); // Limpia los campos después de guardar
         
-        
-        
-
+ 
         clearFields(); // Limpia los campos después de guardar
     }
-
+ }
     private void clearFields() {
         txtName.setText("");
         txtLastName.setText("");
