@@ -18,8 +18,84 @@ public class CreateScreen extends JInternalFrame {
      * Creates new form CreateScreen
      */
     public CreateScreen() {
-       
+        // configuracion del JInternalFrameForm
+        
+        setTitle("Crear Usuario");
+        setSize(400,500);
+        setClosable(true); // nos permite cerrar la ventana
+        setLayout(new GridLayout(7,2)); // Organiza componentes en una cuadricua
+        
+        // etiquetas y campos de entrada pra los datos
+        JLabel lblName = new JLabel("Nombre");
+        JLabel lblLastName = new JLabel("Apellido");
+        JLabel lblCedula = new JLabel("Cedula");
+        JLabel lblPhone = new JLabel("Telefono");
+        JLabel lblAge = new JLabel("Edad");
+        
+        txtName = new JTextField();
+        txtLastName = new JTextField();
+        txtCedula = new JTextField();
+        txtPhone= new JTextField();
+        txtAge = new JTextField();
+           
+           txtName.setPreferredSize(new Dimension(100, 30));
+           add(lblName);
+           
+        
+        JButton btnSave = new JButton("Guardar"); // bootn para guardar los datos
+        
+        
+        // Agregar componentes al formulario
+        add(lblName); add(txtName);
+        add(lblLastName); add(txtLastName);
+        add(lblCedula); add(txtCedula);
+        add(lblPhone); add(txtPhone);
+        add(lblAge); add(txtAge);
+        add(new JLabel()); add(btnSave);
+        
+        
+        // inicializamos la lista en donde se almacenar los datos;
+        
+        personList = new ArrayList<>();
+        
+        // funcion del boton guardar
+        
+        btnSave.addActionListener(e -> saveData());
+        
     }
+    //metodo para guardar los datos
+    
+    private void saveData() {
+        String Name = txtName.getText();
+        String LastName = txtLastName.getText();
+        String Cedula = txtCedula.getText();
+        String Phone = txtPhone.getText();
+        String Age = txtAge.getText();
+        
+         // validaciones para el ingreso de datos 
+        
+        if (Name.isEmpty() || LastName.isEmpty() || Cedula.isEmpty() || Age.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!Name.matches("[a-zA-Z]+") || !LastName.matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(this, "Nombre y Apellido deben contener solo letras", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!Cedula.matches("\\d{10}")) {
+            JOptionPane.showMessageDialog(this, "La cédula debe tener 10 dígitos", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!Age.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "La edad debe ser un número", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }
+    
+   
+    
+    
+    
 
    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

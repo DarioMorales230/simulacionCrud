@@ -8,7 +8,7 @@ public class MainMenu extends JFrame {
     public MainMenu() {
         // Configuración de la ventana principal
         setTitle("Menú Principal");
-        setSize(400, 300);
+        setSize(500, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
@@ -19,10 +19,18 @@ public class MainMenu extends JFrame {
         JButton btnDelete = new JButton("Eliminar");
 
         // Configuración de ubicacion y tamaño de los botones
-        btnCreate.setBounds(140, 30, 120, 30);
-        btnRead.setBounds(140, 80, 120, 30);
-        btnUpdate.setBounds(140, 130, 120, 30);
-        btnDelete.setBounds(140, 180, 120, 30);
+        btnCreate.setBounds(160, 100, 120, 50);
+        btnRead.setBounds(160, 180, 120, 50);
+        btnUpdate.setBounds(160, 260, 120, 50);
+        btnDelete.setBounds(160, 340, 120, 50);
+        
+        
+        /* agregamos la funcionalida a os botones para 
+        que abra las ventanos corespondientes.
+       */
+        
+        btnCreate.addActionListener(e -> openInternalJframe(new CreateScreen()));
+        
         
         // Agregar los botones a la ventana principal
         add(btnCreate);
