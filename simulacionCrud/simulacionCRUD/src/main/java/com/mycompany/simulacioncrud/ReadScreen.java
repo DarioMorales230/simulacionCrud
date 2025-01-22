@@ -7,19 +7,20 @@ import java.util.ArrayList;
 public class ReadScreen extends JInternalFrame {
     
     private JTable table;
-    private ArrayList<Person> personList;
+    
 
 
     /**
      * Creates new form ReadScreen
      */
     public ReadScreen(JFrame mainMenu) {
+        
        setTitle("Leer Registros");
         setSize(400, 300);
         setClosable(true);
         setLayout(new BorderLayout());
 
-        personList = new ArrayList<>();
+        
 
         String[] columnNames = {"Nombre", "Apellido", "Cédula", "Teléfono", "Edad"};
         Object[][] data = {};
@@ -37,8 +38,8 @@ public class ReadScreen extends JInternalFrame {
         add(btnBack, BorderLayout.SOUTH);
        
     }
-    public void updateTable(ArrayList<Person> list) {
-        personList = list;
+    public void updateTable() {
+        ArrayList<Person> personList = DataRepository.getPersonList();
         Object[][] data = new Object[personList.size()][5];
 
         for (int i = 0; i < personList.size(); i++) {
@@ -71,6 +72,8 @@ public class ReadScreen extends JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

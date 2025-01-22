@@ -6,18 +6,21 @@ package com.mycompany.simulacioncrud;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+
 
 public class CreateScreen extends JInternalFrame {
 
     // Creamos los campos y la estructura que se utilizara para alamcenar los datos
     private JTextField txtName, txtLastName, txtCedula, txtPhone, txtAge;
-    private ArrayList<Person> personList;
+    private ReadScreen readScreen; // Referencia a ReadScreen
+    
 
     /**
      * Creates new form CreateScreen
      */
-    public CreateScreen(JFrame mainMenu) {
+    public CreateScreen(JFrame mainMenu, ReadScreen readScreen) {
+        
+         this.readScreen = readScreen; // Asignar la instancia de ReadScreen
         // configuracion del JInternalFrameForm
 
         setTitle("Crear Usuario");
@@ -57,8 +60,7 @@ public class CreateScreen extends JInternalFrame {
         add(btnSave);
         add(btnBack);
 
-        // inicializamos la lista en donde se almacenar los datos;
-        personList = new ArrayList<>();
+        
 
         // funcion del boton guardar
         btnSave.addActionListener(e -> saveData());
@@ -100,8 +102,11 @@ public class CreateScreen extends JInternalFrame {
 
         // Conversión y almacenamiento de datos
         int age = Integer.parseInt(Age);
-        personList.add(new Person(Name, LastName, Cedula, Phone, age));
+        DataRepository.addPerson(new Person(Name, LastName, Cedula, Phone, age));
         JOptionPane.showMessageDialog(this, "Registro agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        
+        
+        
 
         clearFields(); // Limpia los campos después de guardar
     }

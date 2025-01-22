@@ -1,13 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.simulacioncrud;
 
-/**
- *
- * @author User
- */
+import java.util.ArrayList;
+
+
 public class DataRepository {
+     private static ArrayList<Person> personList = new ArrayList<>();
+
+    public static ArrayList<Person> getPersonList() {
+        return personList;
+    }
+
+    public static void addPerson(Person person) {
+        personList.add(person);
+    }
+
+    public static void updatePerson(int index, Person updatedPerson) {
+        if (index >= 0 && index < personList.size()) {
+            personList.set(index, updatedPerson);
+        }
+    }
+
+    public static void deletePerson(int index) {
+        if (index >= 0 && index < personList.size()) {
+            personList.remove(index);
+        }
+    }
     
 }

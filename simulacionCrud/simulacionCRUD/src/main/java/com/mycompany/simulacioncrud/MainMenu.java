@@ -2,7 +2,11 @@ package com.mycompany.simulacioncrud;
 
 import javax.swing.*;
 
+
 public class MainMenu extends JFrame {
+    // Instancias compartidas de las pantallas
+    private ReadScreen readScreen;
+    private CreateScreen createScreen;
 
     // Constructor del Menú Principal
     public MainMenu() {
@@ -11,6 +15,11 @@ public class MainMenu extends JFrame {
         setSize(500, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
+        
+         // Inicializar las pantallas compartidas
+        readScreen = new ReadScreen(this);
+        createScreen = new CreateScreen(this, readScreen);
+
         
         initializeMenu(); // inicializa los botones
         }
@@ -31,20 +40,24 @@ public class MainMenu extends JFrame {
         btnDelete.setBounds(160, 340, 120, 50);
         
         
-        /* agregamos la funcionalida a os botones para 
-        que abra las ventanos corespondientes.
-       */
         
-        btnCreate.addActionListener(e -> openInternalJframe(new CreateScreen(this)));
-        btnRead.addActionListener(e -> openInternalJframe(new ReadScreen(this)));
-        btnUpdate.addActionListener(e -> openInternalJframe(new UpdateScreen(this)));
-        btnDelete.addActionListener(e -> openInternalJframe(new DeleteScreen(this)));
-        
-        // Agregar los botones a la ventana principal
-        add(btnCreate);
-        add(btnRead);
-        add(btnUpdate);
-        add(btnDelete);
+        /* Agregamos la funcionalidad a los botones para 
+           que abra las ventanas correspondientes.
+        */
+            btnCreate.addActionListener(e -> openInternalJframe(createScreen)); // Usa la instancia compartida
+            btnRead.addActionListener(e -> {
+                readScreen.updateTable(); // Asegura que la tabla se actualice antes de mostrar
+                openInternalJframe(readScreen); // Usa la instancia compartida
+            });
+
+            btnUpdate.addActionListener(e -> openInternalJframe(new UpdateScreen(this)));
+            btnDelete.addActionListener(e -> openInternalJframe(new DeleteScreen(this)));
+
+            // Agregar los botones a la ventana principal
+            add(btnCreate);
+            add(btnRead);
+            add(btnUpdate);
+            add(btnDelete);
         
          revalidate(); // Refresca el contenido
         repaint();    // Redibuja la ventana
